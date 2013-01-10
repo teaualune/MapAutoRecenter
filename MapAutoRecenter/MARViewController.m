@@ -51,12 +51,14 @@
 {
     CGPoint pressPoint = [gestureRecognizer locationInView:self.map];
     CLLocationCoordinate2D coordinate = [self.map convertPoint:pressPoint toCoordinateFromView:self.map];
-        
-    annotation.coordinate = coordinate;
-    [self.map addAnnotation:annotation];
-    self.coordinateLabel.text = [NSString stringWithFormat:@"%f, %f", coordinate.latitude, coordinate.longitude];
     
-    [self showPartialCallout];
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        annotation.coordinate = coordinate;
+        [self.map addAnnotation:annotation];
+        self.coordinateLabel.text = [NSString stringWithFormat:@"%f, %f", coordinate.latitude, coordinate.longitude];
+    
+        [self showPartialCallout];
+    }
 }
 
 - (void)tap:(UIGestureRecognizer *)gestureRecognizer
